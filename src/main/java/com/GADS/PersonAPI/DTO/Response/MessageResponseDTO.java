@@ -1,4 +1,4 @@
-package com.GADS.PersonAPI.DTO;
+package com.GADS.PersonAPI.DTO.Response;
 
 import lombok.Builder;
 import lombok.Data;
