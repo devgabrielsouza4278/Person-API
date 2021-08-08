@@ -3,6 +3,7 @@ package com.GADS.PersonAPI.Controller;
 import com.GADS.PersonAPI.DTO.Request.PersonDTO;
 import com.GADS.PersonAPI.DTO.Response.MessageResponseDTO;
 import com.GADS.PersonAPI.Entity.Person;
+import com.GADS.PersonAPI.Exception.PersonNotFoundException;
 import com.GADS.PersonAPI.Services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,11 @@ public class PersonController {
         @GetMapping
         public List<PersonDTO> listALL () {
             return personService.listAll();
+        }
+
+        @GetMapping("/{id}")
+        public PersonDTO findByID(@PathVariable  Long id) throws PersonNotFoundException {
+            return personService.findById(id);
         }
 
 

@@ -3,6 +3,7 @@ package com.GADS.PersonAPI.Services;
 import com.GADS.PersonAPI.DTO.Request.PersonDTO;
 import com.GADS.PersonAPI.DTO.Response.MessageResponseDTO;
 import com.GADS.PersonAPI.Entity.Person;
+import com.GADS.PersonAPI.Exception.PersonNotFoundException;
 import com.GADS.PersonAPI.Mapper.PersonMapper;
 import com.GADS.PersonAPI.Repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,5 +44,14 @@ public class PersonService {
         return allPeople.stream()
                 .map(personMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public PersonDTO findById ( Long id) throws PersonNotFoundException {
+        Person person = personRepository.findById(id)
+                .orElseThrow(
+                        ()-> new PersonNotFoundException(id));
+
+        return personMapper.toDTO(person);
+
     }
 }
