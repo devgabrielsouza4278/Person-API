@@ -1,17 +1,20 @@
 package com.GADS.PersonAPI.Services;
 
-import com.GADS.PersonAPI.DTO.MessageResponseDTO;
+import com.GADS.PersonAPI.DTO.Request.PersonDTO;
+import com.GADS.PersonAPI.DTO.Response.MessageResponseDTO;
 import com.GADS.PersonAPI.Entity.Person;
+import com.GADS.PersonAPI.Mapper.PersonMapper;
 import com.GADS.PersonAPI.Repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Service
 public class PersonService {
+
     private PersonRepository personRepository;
+
+    private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
     @Autowired
     public PersonService(PersonRepository personRepository) {
@@ -19,8 +22,10 @@ public class PersonService {
     }
 
     @PostMapping
-    public MessageResponseDTO createPerson (Person person) {
-        Person savedPerson = personRepository.save(person);
+    public MessageResponseDTO createPerson (PersonDTO personDTO) {
+            Person personToSave= personMapper.toModel(personDTO);
+
+            Person savedPerson = personRepository.save(personToSave);
             return MessageResponseDTO
                     .builder()
                     .Message("Pessoa cadastrada com o id: " + savedPerson.getId())
