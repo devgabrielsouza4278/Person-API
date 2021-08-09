@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class PersonService {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
@@ -65,14 +65,6 @@ public class PersonService {
 
     }
 
-
-
-    private MessageResponseDTO createMessageResponse(Long id, String message) {
-        return MessageResponseDTO
-                .builder()
-                .Message(message + id)
-                .build();
-    }
     private Person verifyIfExists(Long id) throws PersonNotFoundException {
         return personRepository.findById(id)
                 .orElseThrow(
@@ -80,5 +72,13 @@ public class PersonService {
 
 
     }
+
+    private MessageResponseDTO createMessageResponse(Long id, String message) {
+        return MessageResponseDTO
+                .builder()
+                .Message(message + id)
+                .build();
+    }
+
 
 }
