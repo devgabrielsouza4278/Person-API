@@ -21,11 +21,11 @@ public class PersonDTO {
     private Long id;
 
     @NotEmpty
-    @Size(min = 2,max = 90)
+    @Size(min = 2, max = 90)
     private String firstname;
 
     @NotEmpty
-    @Size(min = 2,max = 90)
+    @Size(min = 2, max = 90)
     private String lastname;
 
     @NotEmpty

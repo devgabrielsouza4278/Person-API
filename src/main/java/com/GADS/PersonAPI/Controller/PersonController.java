@@ -2,7 +2,6 @@ package com.GADS.PersonAPI.Controller;
 
 import com.GADS.PersonAPI.DTO.Request.PersonDTO;
 import com.GADS.PersonAPI.DTO.Response.MessageResponseDTO;
-import com.GADS.PersonAPI.Entity.Person;
 import com.GADS.PersonAPI.Exception.PersonNotFoundException;
 import com.GADS.PersonAPI.Services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,28 +15,34 @@ import java.util.List;
 @RequestMapping("/api/v1/people")
 public class PersonController {
 
-        private PersonService personService;
+    private PersonService personService;
 
-        @Autowired
-        public PersonController(PersonService personService) {
-            this.personService = personService;
+    @Autowired
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
-        @PostMapping
-        @ResponseStatus(HttpStatus.CREATED)
-        public MessageResponseDTO createPerson (@RequestBody @Valid  PersonDTO personDTO) {
-            return personService.createPerson(personDTO);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public MessageResponseDTO createPerson(@RequestBody @Valid PersonDTO personDTO) {
+        return personService.createPerson(personDTO);
     }
 
-        @GetMapping
-        public List<PersonDTO> listALL () {
-            return personService.listAll();
-        }
+    @GetMapping
+    public List<PersonDTO> listALL() {
+        return personService.listAll();
+    }
 
-        @GetMapping("/{id}")
-        public PersonDTO findByID(@PathVariable  Long id) throws PersonNotFoundException {
-            return personService.findById(id);
-        }
+    @GetMapping("/{id}")
+    public PersonDTO findByID(@PathVariable Long id) throws PersonNotFoundException {
+        return personService.findById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteByID(@PathVariable Long id) throws PersonNotFoundException {
+        personService.delete(id);
+    }
 
 
 }
