@@ -26,14 +26,10 @@ public class PersonService {
     }
 
 
-    @PostMapping
     public MessageResponseDTO createPerson(PersonDTO personDTO) {
         Person personToSave = personMapper.toModel(personDTO);
         Person savedPerson = personRepository.save(personToSave);
-        return MessageResponseDTO
-                .builder()
-                .Message("Pessoa cadastrada com o id: " + savedPerson.getId())
-                .build();
+        return createMessageResponse(savedPerson.getId(), "Pessoa cadastrada com o id: ");
 
     }
 
@@ -58,6 +54,25 @@ public class PersonService {
         personRepository.deleteById(id);
 
     }
+
+
+    public MessageResponseDTO updateByID(Long id, PersonDTO personDTO) throws PersonNotFoundException {
+        verifyIfExists(id);
+
+        Person personToUpdate = personMapper.toModel(personDTO);
+
+        Person updatedPerson = personRepository.save(personToUpdate);
+        return createMessageResponse(updatedPerson.getId(), "Atualizado o cadastro do usuíaro: ");
+
+    }
+
+    private MessageResponseDTO createMessageResponse(Long id, String message) {
+        return MessageResponseDTO
+                .builder()
+                .Message(message + id)
+                .build();
+    }
+
 
     private Person verifyIfExists(Long id) throws PersonNotFoundException {
         return personRepository.findById(id)
