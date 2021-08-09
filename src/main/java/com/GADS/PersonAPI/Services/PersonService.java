@@ -54,7 +54,14 @@ public class PersonService {
 
     }
 
+    private Person verifyIfExists(Long id) throws PersonNotFoundException {
+        return personRepository.findById(id)
+                .orElseThrow(
+                        () -> new PersonNotFoundException(id));
 
+
+    }
+    
     public MessageResponseDTO updateByID(Long id, PersonDTO personDTO) throws PersonNotFoundException {
         verifyIfExists(id);
 
@@ -65,13 +72,7 @@ public class PersonService {
 
     }
 
-    private Person verifyIfExists(Long id) throws PersonNotFoundException {
-        return personRepository.findById(id)
-                .orElseThrow(
-                        () -> new PersonNotFoundException(id));
-
-
-    }
+    
 
     private MessageResponseDTO createMessageResponse(Long id, String message) {
         return MessageResponseDTO
