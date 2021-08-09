@@ -65,13 +65,7 @@ public class PersonService {
 
     }
 
-    private Person verifyIfExists(Long id) throws PersonNotFoundException {
-        return personRepository.findById(id)
-                .orElseThrow(
-                        () -> new PersonNotFoundException(id));
 
-
-    }
 
     private MessageResponseDTO createMessageResponse(Long id, String message) {
         return MessageResponseDTO
@@ -79,6 +73,12 @@ public class PersonService {
                 .Message(message + id)
                 .build();
     }
+    private Person verifyIfExists(Long id) throws PersonNotFoundException {
+        return personRepository.findById(id)
+                .orElseThrow(
+                        () -> new PersonNotFoundException(id));
 
+
+    }
 
 }
