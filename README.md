@@ -22,7 +22,7 @@ Após executar o comando acima, basta apenas abrir o seguinte endereço e visual
 ```
 http://localhost:8080/api/v1/people
 ```
-Também pode utilizar a url do Heroku que está logo abaixo, para testes no postman:
+Também pode utilizar a URL do Heroku que está logo abaixo, para testes no Postman:
 
 ```
 gads-peopleapi.herokuapp.com/api/v1/people
