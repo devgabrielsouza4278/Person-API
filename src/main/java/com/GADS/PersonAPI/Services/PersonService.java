@@ -8,7 +8,6 @@ import com.GADS.PersonAPI.Mapper.PersonMapper;
 import com.GADS.PersonAPI.Repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,7 +61,7 @@ public class PersonService {
         Person personToUpdate = personMapper.toModel(personDTO);
 
         Person updatedPerson = personRepository.save(personToUpdate);
-        return createMessageResponse(updatedPerson.getId(), "Atualizado o cadastro do usuíaro: ");
+        return createMessageResponse(updatedPerson.getId(), "Atualizado o cadastro do usuário: ");
 
     }
 
